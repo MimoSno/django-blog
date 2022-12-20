@@ -1,0 +1,15 @@
+{% extends 'example/base.html' %}
+
+{% block content %}
+{% for i in bus %}
+    <div>
+        {% if i.category_data_id == 1 %}
+            <div>
+                <h1>{{ i.title }}</h1>
+                <p>{{ i.text }}</p>
+            </div>
+        {% endif %}
+    </div>
+{% endfor %}
+
+{% endblock %}
