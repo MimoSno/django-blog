@@ -1,0 +1,23 @@
+{% extends 'example/base.html' %}
+
+
+
+
+{% block content %}
+    {% for example in examples %}
+        <div class="post">
+            <div class="date">
+            <p>published: {{ example.published_date }}
+                {% for i in links %}
+                    {% if i.name_id == example.title %}
+                        <p><img src="{{ i.link }}"></p>
+                    {% endif %}
+            <!--    |linebreaksbr прогоняет текст через фильтр для преобразования переносов строк в параграфы-->
+                {% endfor %}
+                <h1><a href="  ">{{ example.title }}</a></h1>
+                <p>{{ example.text|linebreaksbr }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+

@@ -1,0 +1,26 @@
+{% extends 'example/base.html' %}
+
+{% block header %}
+    <div class="title-header container">
+        <div class="row ">
+            {%  for i in title_page %}
+                <div class="col">
+                    <h1><a href="{% url 'example_detail'  %}">{{ i }}</a></h1>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+    <div class="post">
+        {% if example.published_date %}
+            <div class="date">
+                {{ example.published_date }}
+            </div>
+        {% endif %}
+        <h1>{{ example.title }}</h1>
+        <p>{{ example.text|linebreaksbr }}</p>
+    </div>
+{% endblock %}

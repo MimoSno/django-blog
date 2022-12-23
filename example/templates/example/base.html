@@ -1,0 +1,91 @@
+<!--
+Расширение шаблона - не придётся повторяться каждый раз,
+когда потребуется использовать ту же информацию/структуру.
+И если появится необходимость что-то изменить,
+не придётся вносить правки в каждую страницу: достаточно скорректировать шаблон!
+
+Базовый шаблон (base.html) — это наиболее общая типовая форма страницы, которую ты расширяешь для отдельных случев.
+
+-->
+
+
+<!--
+<h1>Заголовок</h1> — главный заголовок страницы
+<h2>Подзаголовок</h2> — для заголовков второго уровня
+<h3>Заголовок третьего уровня</h3> … и так далее, вплоть до <h6>
+<p>Параграф</p>
+<em>текст</em> — курсивный шрифт
+<strong>текст</strong> — жирный шрифт
+<br> — переход на следующую строку (внутрь br нельзя ничего поместить, также для него нет закрывающего тега)
+<a href="https://djangogirls.org">link</a> создаёт ссылку
+<ul><li>первый элемент</li><li>второй элемент</li></ul> создаёт список, такой же как этот!
+<div></div> определяет раздел страницы
+
+Bootstrap — один из наиболее популярных HTML и CSS фреймворков для разработки красивых сайтов: https://getbootstrap.com/
+Он был написан программистами, которые работали в Twitter, а сейчас совершенствуется волонтёрами со всего мира.
+
+
+{% load static %} - сообщаем нашему HTML-шаблону о том, что мы добавили CSS
+
+<link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css"> - шрифт нашего заголовка
+Эта строка импортирует шрифт под названием Lobster из шрифтов Google (https://www.google.com/fonts).
+в css добавь теперь "font-family: 'Lobster';" - добавиться шрифт
+
+
+-->
+
+
+
+{% load static %}
+{% load example_tags %}
+
+
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>BASE</title>
+            <link rel="stylesheet" href="{% static '/css/example/index_list.css' %}">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.rtl.min.css" integrity="sha384-LPvXVVAlyPoBSGkX8UddpctDks+1P4HG8MhT7/YwqHtJ40bstjzCqjj+VVVDhsCo" crossorigin="anonymous">
+
+            <!--            шрифт нашего заголовка-->
+            <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+        </head>
+        <body>
+            <div class="container page-header">
+                <div class="row row-cols-auto">
+                    <div class="col">
+                        <h1><a href="/">Blog</a></h1>
+                    </div>
+                    <div class="col">
+                        <h1><a href="{% url 'documentation' %}">Documentation</a></h1>
+                    </div>
+                    <div class="col">
+                        <h1><a href="{% url 'example_new' %}">Add</a></h1>
+                    </div>
+                        {% get_category as cat %}
+                        {% for i in cat %}
+                            <h1><a href="{% url i.name %}">{{ i }}</a></h1>
+                        {% endfor %}
+                </div>
+            </div>
+            <div class="content container">
+                <div class="title-header row">
+                        {% block header %}
+                        {% endblock %}
+                    <div class="col-md-8">
+                        {% block content %}
+                        {% endblock %}
+
+                    </div>
+                </div>
+            </div>
+
+        </body>
+    </html>
+
+
+
+
+
+
